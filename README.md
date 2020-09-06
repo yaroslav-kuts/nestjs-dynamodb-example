@@ -1,5 +1,4 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="220" alt="Nest Logo" /></a>
   <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html" target="blank"><img src="https://user-images.githubusercontent.com/6509926/70553550-f033b980-1b40-11ea-9192-759b3b1053b3.png" width="320" alt="DynamoDB Logo" /></a>
 </p>
 
