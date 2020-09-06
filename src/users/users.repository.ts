@@ -58,7 +58,7 @@ export class UsersRepository implements OnModuleInit {
         ExpressionAttributeValues:{ ':n': name, ':e': email },
       })
       .promise();
-      
+
     return { id, name, email };
   }
 
