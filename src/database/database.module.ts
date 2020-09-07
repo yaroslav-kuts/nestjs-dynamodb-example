@@ -1,10 +1,9 @@
-import { Injectable, Module, Global, OnModuleInit } from '@nestjs/common';
+import { Injectable, Module, OnModuleInit } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 
 export const TABLE_NAME = 'Main';
 
 @Injectable()
-@Global()
 @Module({
   providers: [AWS.DynamoDB, AWS.DynamoDB.DocumentClient],
   exports: [AWS.DynamoDB, AWS.DynamoDB.DocumentClient]
@@ -19,7 +18,7 @@ export class DatabaseModule implements OnModuleInit {
 
     await this.db.createTable({
       TableName: TABLE_NAME,
-      KeySchema: [{ AttributeName: 'id', KeyType: "HASH" }],
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
       AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
       ProvisionedThroughput: {
         ReadCapacityUnits: 10,

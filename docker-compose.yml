@@ -5,10 +5,10 @@ services:
     image: amazon/dynamodb-local
     ports:
       - "8000:8000"
-  app:
-    container_name: app
-    build: ./
-    volumes:
-      - ./:/app
-    ports:
-      - "3000:3000"
+  # app:
+  #   container_name: app
+  #   build: ./
+  #   volumes:
+  #     - ./:/app
+  #   ports:
+  #     - "3000:3000"
