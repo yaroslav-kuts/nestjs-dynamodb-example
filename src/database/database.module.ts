@@ -15,19 +15,26 @@ export const TABLE_NAME_TOKEN = 'table-name-token';
 })
 export class DatabaseModule implements OnModuleInit {
   constructor(
-    @Inject(TABLE_NAME_TOKEN) private readonly table: string,
+    @Inject(TABLE_NAME_TOKEN) private readonly tableName: string,
     private readonly db: AWS.DynamoDB,
   ) {}
 
 
   async onModuleInit(): Promise<void> {
+    // await this.db.deleteTable({ TableName: this.tableName }).promise();
     const result = await this.db.listTables().promise();
-    if (result.TableNames.includes(this.table)) return;
+    if (result.TableNames.includes(this.tableName)) return;
 
     await this.db.createTable({
-      TableName: this.table,
-      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
-      AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
+      TableName: this.tableName,
+      KeySchema: [
+        { AttributeName: 'PK', KeyType: 'HASH' },
+        { AttributeName: 'SK', KeyType: 'RANGE' },
+      ],
+      AttributeDefinitions: [
+        { AttributeName: 'PK', AttributeType: 'S' },
+        { AttributeName: 'SK', AttributeType: 'S' },
+      ],
       ProvisionedThroughput: {
         ReadCapacityUnits: 10,
         WriteCapacityUnits: 10

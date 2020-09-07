@@ -19,14 +19,24 @@ export class UsersRepository {
   }
 
   async get(id: string): Promise<UserDto> {
-    const result = await this.client.get({ TableName: this.tableName, Key: { id } }).promise();
-    return (result.Item as UserDto);
+    const { Item } = await this.client
+      .get({ TableName: this.tableName, Key: { PK: id, SK: '#PROFILE' } })
+      .promise();
+    if (!Item) return null;
+
+    const user = new UserDto();
+    user.id = id;
+    user.name = Item.name;
+    user.email = Item.email;
+
+    return user;
   }
 
   async create(user: UserInputDto): Promise<UserDto> {
-    const item = { id: uuid(), ...user }
+    const id = uuid();
+    const item = { PK: id, SK: '#PROFILE', ...user };
     await this.client.put({ TableName: this.tableName, Item: item }).promise();
-    return item;
+    return { id, ...user };
   }
 
   async update(id: string, { name, email }: UserInputDto): Promise<UserDto> {
@@ -36,7 +46,7 @@ export class UsersRepository {
     await this.client
       .update({
         TableName: this.tableName,
-        Key: { id },
+        Key: { PK: id, SK: '#PROFILE' },
         UpdateExpression: 'set #name = :n, #email =:e',
         ExpressionAttributeNames: { '#name': 'name', '#email': 'email' },
         ExpressionAttributeValues:{ ':n': name, ':e': email },
@@ -48,7 +58,9 @@ export class UsersRepository {
 
   async delete(id: string): Promise<UserDto> {
     const user = await this.get(id);
-    if (user) await this.client.delete({ TableName: this.tableName, Key: { id } }).promise();
+    if (user) await this.client
+      .delete({ TableName: this.tableName, Key: { PK: id, SK: '#PROFILE' } })
+      .promise();
     return user;
   }
 }

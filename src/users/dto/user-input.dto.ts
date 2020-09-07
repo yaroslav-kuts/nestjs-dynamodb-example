@@ -1,4 +1,4 @@
 export class UserInputDto {
-  readonly name: string;
-  readonly email: string;
+  name: string;
+  email: string;
 }
