@@ -6,6 +6,26 @@
 
 An example Nest.js application that uses AWS DynamoDB.
 
+## Entities
+
+* Users
+* Posts
+* Comments
+
+## Access Patterns
+
+- [x] Create user
+- [x] Get user
+- [x] Update user
+- [x] Delete user
+
+- [x] Create post
+- [x] Get post
+- [x] Get all post for specified user
+- [ ] Get last _n_ posts (with pagination)
+- [x] Update post
+- [x] Delete post
+
 ## Running the app
 
 ```bash
