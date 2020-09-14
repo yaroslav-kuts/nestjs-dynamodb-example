@@ -21,7 +21,6 @@ export class DatabaseModule implements OnModuleInit {
 
 
   async onModuleInit(): Promise<void> {
-    // await this.db.deleteTable({ TableName: this.tableName }).promise();
     const result = await this.db.listTables().promise();
     if (result.TableNames.includes(this.tableName)) return;
 
