@@ -43,7 +43,7 @@ export class PostsRepository {
     const postId = `POST${uuid()}`;
     const addedAt = Date.now();
 
-    const item = { PK: userId, SK: postId, title, text, addedAt };
+    const item = { PK: userId, SK: postId, title, text, addedAt, type: 'POST' };
     await this.client.put({ TableName: this.tableName, Item: item }).promise();
 
     const createdPost = new PostDto();

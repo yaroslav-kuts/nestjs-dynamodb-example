@@ -34,7 +34,7 @@ export class UsersRepository {
 
   async create(user: UserInputDto): Promise<UserDto> {
     const id = uuid();
-    const item = { PK: id, SK: '#PROFILE', ...user };
+    const item = { PK: id, SK: '#PROFILE', type: 'USER', ...user };
     await this.client.put({ TableName: this.tableName, Item: item }).promise();
     return { id, ...user };
   }
